@@ -1,18 +1,44 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="success-page">
+    <el-container>
+      <el-main>
+        <div class="content">
+          <h1>Login Successful!</h1>
+          <p>Welcome, {{ username }}!</p>
+        </div>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { getInfo } from "@/api/login";
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  name: "SuccessPage",
+  data() {
+    return {
+      username: "",
+    };
+  },
+  mounted() {
+    getInfo().then((res) => {
+      this.username = res.data.username;
+    });
+  },
+};
 </script>
+
+<style scoped>
+.success-page {
+  height: 100%;
+}
+
+.content {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+</style>
